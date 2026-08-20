@@ -24,6 +24,8 @@ client = OpenAI(
 # 📢 [用户自定义区]：在这里填入你感兴趣的国内源（比如你本地部署的 WeRSS 链接，或独立博客 RSS）
 DOMESTIC_FEEDS = [
     "http://124.223.40.126:8001/feed/all.rss" # 示例：本地微信公众号聚合源
+    "https://ai-digest.liziran.com/en/feed.xml"
+    "https://www.jiqizhixin.com/rss"
 ]
 
 # 📢 [用户自定义区]：在这里填入你感兴趣的国际源（如科技、财经、AI、设计等领域的 RSS）
@@ -31,11 +33,17 @@ INTL_FEEDS = [
     "https://www.theverge.com/rss/index.xml",           # 示例：科技资讯 The Verge
     "https://hnrss.org/frontpage",                      # 示例：极客论坛 Hacker News
     "https://www.economist.com/finance-and-economics/rss.xml" # 示例：经济学人
+    "https://huggingface.co/blog/feed.xml"
+    "https://ai.googleblog.com/feeds/posts/default"
+    "https://openai.com/blog/rss.xml"
+    "https://www.wired.com/feed/category/ai/latest/rss"
+    "https://techcrunch.com/category/artificial-intelligence/feed/"
+    "	https://www.technologyreview.com/topic/artificial-intelligence/feed/"
 ]
 
 # 📢 [用户自定义区]：自定义你的周报名称和你的专属身份/格言
-REPORT_TITLE = "🌍 专属【AI 洞察周报】"
-REPORT_SUBTITLE = "由 DeepSeek 强力驱动，为您过滤信息噪音，提炼高维认知。"
+REPORT_TITLE = "🌍Yoyo 专属【AI 洞察周报】"
+REPORT_SUBTITLE = "每周AI学习量。"
 
 # ==========================================
 # 3. 抓取近期更新的 RSS 文章
@@ -98,19 +106,21 @@ def extract_full_text(url):
 def analyze_with_deepseek(title, content, source_name):
     # 📢 [用户自定义区]：这是决定 AI 输出质量的灵魂 Prompt。你可以根据自己的需求调整语气和结构！
     prompt = f"""
-    你是一位资深的行业分析师与知识提炼专家，擅长从繁杂的资讯中过滤噪音，提取核心价值。
+    你是一位**专注AI产业化的资深投资分析师**，擅长从技术动态中提炼商业价值与战略信号。
+
     请审读这篇来自【{source_name}】的最新资讯：
     【标题】：{title}
     【正文/摘要】：{content}
-    
-    【判定准则】
-    1. 如果该内容完全是无营养的广告、纯软文、毫无逻辑的碎片信息，请仅回复“无效资讯”。
-    2. 如果内容具备一定的信息增量或阅读价值，请发挥你的专长，按以下结构输出结构化简报。
 
-    【深度洞察产出】
-    📰 **1. 核心提要**：用 1-2 句话极简概括这篇资讯的核心事实（谁做了什么，发布了什么，或探讨了什么）。
-    🧠 **2. 深度洞察**：分析该事件或观点背后的底层逻辑、潜在影响或行业趋势（这件事为什么重要？说明了什么问题？）。
-    🎯 **3. 行动启发**：结合这篇资讯，给读者提供一个具体的思考角度或可以直接落地的行动建议。
+    【判定准则】
+    1. 如果该内容仅是无实质信息的广告、产品发布通告或旧闻重发，请仅回复“低信息量内容，建议跳过”。
+    2. 若内容具备商业或战略分析价值，请按以下结构输出洞察简报。
+
+    【高管视角洞察】
+    📌 **一句话要闻**：用最精炼的商业语言概括核心事实（例如：某公司发布某产品，意在抢占某市场）。
+    💡 **战略意义分析**：解析该事件对行业竞争格局、商业模式或投资风向的潜在影响。重点回答：**这对我的决策有何启发？**（例如：是否意味着某个技术路线已被验证？竞争对手可能如何应对？）
+    🔭 **一个值得关注的信号**：指出该资讯中可能预示未来趋势的隐藏细节或长期影响，引发进一步思考。
+    💡 **对生活应用和影视行业的影响**：指出该资讯中可能预示对影视行业相关和普通人生活的影响。
     """
     try:
         response = client.chat.completions.create(
@@ -170,7 +180,7 @@ if __name__ == "__main__":
     
     # 📢 [用户自定义区]：组装报告。这里设置国内最多 15 篇，国际最多 8 篇，可自行修改 limit。
     final_report += process_news_pipeline(raw_domestic, "📌 第一部分：国内精选动态", limit=15)
-    final_report += process_news_pipeline(raw_intl, "🌐 第二部分：海外视野观察", limit=8)
+    final_report += process_news_pipeline(raw_intl, "🌐 第二部分：海外视野观察", limit=20)
     
     # 推送至微信 (使用 HTTPS 防止被拦截)
     try:
