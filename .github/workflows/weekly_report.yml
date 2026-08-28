@@ -1,9 +1,9 @@
 name: AI Weekly Info Distiller
 
 on:
-  # 关键设置：北京时间每周五中午 12:00 运行
+  # 关键设置：北京时间每周五中午 1:00 运行（UTC 时间 4:00）
   schedule:
-    - cron: '0 4 * * 5'
+    - cron: '0 5 * * 5'
   # 这个配置允许你在 GitHub 页面上手动点击按钮运行测试
   workflow_dispatch: 
 
@@ -13,18 +13,20 @@ jobs:
     
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4  # 升级到 v4
 
       - name: Set up Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5  # 升级到 v5
         with:
           python-version: '3.10'
 
       - name: Install Dependencies
-        # 📢 优化：精简了只真正需要的依赖，加快每次 Action 的启动速度
         run: |
           python -m pip install --upgrade pip
-          pip install requests feedparser openai
+          # 如果项目中有 requirements.txt，用下面这行更可靠
+          pip install -r requirements.txt
+          # 如果没有 requirements.txt，可以用下面这行
+          # pip install requests feedparser openai
 
       - name: Run AI Pipeline Script
         env:
