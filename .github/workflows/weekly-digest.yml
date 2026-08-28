@@ -2,7 +2,7 @@ name: AI Weekly Info Distiller
 
 on:
   schedule:
-    # 每周四 07:00 执行
+    # 北京时间每周五上午10:00执行
     - cron: '0 2 * * 5'
   workflow_dispatch:  # 允许你手动触发
 
