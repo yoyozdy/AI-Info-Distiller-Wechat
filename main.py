@@ -31,14 +31,11 @@ DOMESTIC_FEEDS = [
 # 📢 [用户自定义区]：在这里填入你感兴趣的国际源（如科技、财经、AI、设计等领域的 RSS）
 INTL_FEEDS = [
     "https://www.theverge.com/rss/index.xml",           # 示例：科技资讯 The Verge
-    "https://hnrss.org/frontpage",                      # 示例：极客论坛 Hacker News
     "https://www.economist.com/finance-and-economics/rss.xml" # 示例：经济学人
     "https://huggingface.co/blog/feed.xml"
     "https://ai.googleblog.com/feeds/posts/default"
     "https://openai.com/blog/rss.xml"
-    "https://www.wired.com/feed/category/ai/latest/rss"
     "https://techcrunch.com/category/artificial-intelligence/feed/"
-    "	https://www.technologyreview.com/topic/artificial-intelligence/feed/"
 ]
 
 # 📢 [用户自定义区]：自定义你的周报名称和你的专属身份/格言
