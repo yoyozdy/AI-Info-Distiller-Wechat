@@ -179,8 +179,8 @@ if __name__ == "__main__":
     final_report += f"> 💡 **订阅说明**：{REPORT_SUBTITLE}\n\n---\n\n"
     
     # 📢 [用户自定义区]：组装报告。这里设置国内最多 15 篇，国际最多 8 篇，可自行修改 limit。
-    final_report += process_news_pipeline(raw_domestic, "📌 第一部分：国内精选动态", limit=15)
-    final_report += process_news_pipeline(raw_intl, "🌐 第二部分：海外视野观察", limit=20)
+    final_report += process_news_pipeline(raw_domestic, "📌 第一部分：国内精选动态", limit=20)
+    final_report += process_news_pipeline(raw_intl, "🌐 第二部分：海外视野观察", limit=50)
     
     # 推送至微信 (使用 HTTPS 防止被拦截)
     try:
