@@ -1,9 +1,9 @@
 name: AI Weekly Info Distiller
 
 on:
-  # 关键设置：北京时间每周五中午 1:00 运行（UTC 时间 4:00）
+  # 关键设置：北京时间每周五中午 1:20 运行（UTC 时间 4:00）
   schedule:
-    - cron: '0 5 * * 5'
+    - cron: '20 5 * * 5'
   # 这个配置允许你在 GitHub 页面上手动点击按钮运行测试
   workflow_dispatch: 
 
