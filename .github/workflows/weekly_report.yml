@@ -1,0 +1,33 @@
+name: AI Weekly Info Distiller
+
+on:
+  # 关键设置：北京时间每周五中午 12:00 运行
+  schedule:
+    - cron: '0 4 * * 5'
+  # 这个配置允许你在 GitHub 页面上手动点击按钮运行测试
+  workflow_dispatch: 
+
+jobs:
+  build_and_run:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install Dependencies
+        # 📢 优化：精简了只真正需要的依赖，加快每次 Action 的启动速度
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests feedparser openai
+
+      - name: Run AI Pipeline Script
+        env:
+          DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+          PUSHPLUS_TOKEN: ${{ secrets.PUSHPLUS_TOKEN }}
+        run: python main.py
